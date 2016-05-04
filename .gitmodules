@@ -1,0 +1,6 @@
+[submodule "NachtVanKunstEnWetenschap/PulseSensor_Amped_Arduino"]
+	path = NachtVanKunstEnWetenschap/PulseSensor_Amped_Arduino
+	url = https://github.com/WorldFamousElectronics/PulseSensor_Amped_Arduino.git
+[submodule "NachtVanKunstEnWetenschap/PulseSensor_Amped_Processing_Visualizer"]
+	path = NachtVanKunstEnWetenschap/PulseSensor_Amped_Processing_Visualizer
+	url = https://github.com/WorldFamousElectronics/PulseSensor_Amped_Processing_Visualizer.git
