@@ -1,9 +1,21 @@
+import processing.serial.*;
+
 PShape heart;
+int IBI;
+int BPM;
+int Sensor;
+boolean beat;
 float a = 0;
+float hBeat = 0;
+float scaler;
+Serial port;
 
 void setup() {
   //size(600, 600, P3D);
   fullScreen(P3D);
+  port = new Serial(this, Serial.list()[0], 115200);
+  port.clear();
+  port.bufferUntil('\n');
   heart = loadShape("Heart.OBJ");
   heart.disableStyle();
   heart.rotateY(PI);
@@ -20,6 +32,15 @@ void draw() {
   line(-height/2, -height/2, height/2, height/2);
   line(height/2, -height/2, -height/2, height/2);
   directionalLight(255, 255, 255, 0, 0, -1);
+
+  hBeat--;
+  hBeat = max(hBeat, 0);
+  if (hBeat > 0) {
+    scaler = 1;
+  } else {
+    scaler = 0.9;
+  }
+
   for (float r=0; r<TWO_PI; r+=HALF_PI) {
     pushMatrix();
     pushStyle();
@@ -27,19 +48,10 @@ void draw() {
     translate(0, -height/4);
     rotateX(HALF_PI);
     rotateZ(r+a);
-    scale(hBeat());
+    scale(scaler);
     shape(heart, 0, 0);
     popMatrix();
     popStyle();
   }
   a = (a+PI/64)%TWO_PI;
-}
-
-float hBeat(){
-  if(mousePressed){
-    return 1;
-  }
-  else{
-    return 0.9;
-  }
 }
