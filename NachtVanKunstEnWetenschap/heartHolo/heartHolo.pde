@@ -60,6 +60,12 @@ void draw() {
     }
   }
 
+  if(!bpmPresent){
+    float ibTime = 60000/(ABPM/people);
+    if(millis()%ibTime <= 50){
+      hBeat = 20;
+    }
+  }
   
   if(hBeat == 20){
     player.rewind();
