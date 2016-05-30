@@ -62,7 +62,7 @@ void draw() {
 
   if(!bpmPresent){
     float ibTime = 60000/(ABPM/people);
-    if(millis()%ibTime <= 50){
+    if(millis()%ibTime <= 30){
       hBeat = 20;
     }
   }
