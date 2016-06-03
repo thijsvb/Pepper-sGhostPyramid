@@ -14,25 +14,29 @@ boolean bpmPresent, pbpmPresent;
 float a = 0;
 float hBeat = 0;
 float scaler;
+float hScaleX = 1;
+float hScaleY = 1;
+float vScaleX = 1;
+float vScaleY = 1;
 Serial port;
 
 void setup() {
   //size(600, 600, P3D);
   fullScreen(P3D);
-  
+
   minim = new Minim(this);
   player = minim.loadFile("Beat.mp3");
-  
+
   port = new Serial(this, Serial.list()[0], 115200);
   port.clear();
   port.bufferUntil('\n');
-  
+
   heart = loadShape("Heart.OBJ");
   heart.disableStyle();
   //heart.rotateY(PI);
   heart.translate(0, -50, 50);
   heart.scale(height/(600/1.45));
-  
+
   textSize(40);
   textAlign(CENTER, CENTER);
   background(0);
@@ -54,20 +58,20 @@ void draw() {
     bpmPresent = true;
   } else {
     bpmPresent = false;
-    if(pbpmPresent){
+    if (pbpmPresent) {
       people++;
       ABPM+=BPM;
     }
   }
 
-  if(!bpmPresent){
+  if (!bpmPresent) {
     float ibTime = 60000/(ABPM/people);
-    if(millis()%ibTime <= 30){
+    if (millis()%ibTime <= 30) {
       hBeat = 20;
     }
   }
-  
-  if(hBeat == 20){
+
+  if (hBeat == 20) {
     player.rewind();
     player.play();
   }
@@ -87,6 +91,16 @@ void draw() {
     rotateX(HALF_PI);
     rotateZ(r+a);
     scale(scaler);
+    if (r < HALF_PI) {
+      heart.scale(vScaleX, vScaleY);
+    } else if (r < PI) {
+      heart.scale(hScaleX, hScaleY);
+    } else if (r < PI+HALF_PI) {
+      heart.scale(vScaleX, vScaleY);
+    } else if (r < TWO_PI) {
+      heart.scale(hScaleX, hScaleY);
+    }
+
     shape(heart, 0, 0);
     popMatrix();
     popStyle();
