@@ -4,7 +4,7 @@ import ddf.minim.*;
 Minim minim;
 AudioPlayer player;
 
-PShape heart;
+PShape heart, hHeart, vHeart;
 int IBI;
 int BPM, pBPM;
 int ABPM = 70;
@@ -16,8 +16,10 @@ float hBeat = 0;
 float scaler;
 float hScaleX = 1;
 float hScaleY = 1;
+float hScaleZ = 1;
 float vScaleX = 1;
 float vScaleY = 1;
+float vScaleZ = 0.7;
 Serial port;
 
 void setup() {
@@ -37,6 +39,11 @@ void setup() {
   heart.translate(0, -50, 50);
   heart.scale(height/(600/1.45));
 
+  hHeart = heart;
+  hHeart.scale(hScaleX, hScaleY, hScaleZ);
+  vHeart = heart;
+  vHeart.scale(vScaleX, vScaleY, vScaleZ);
+
   textSize(40);
   textAlign(CENTER, CENTER);
   background(0);
@@ -53,27 +60,30 @@ void draw() {
 
 
   pbpmPresent = bpmPresent;
-  pBPM = BPM;
-  if (BPM >= 50 && BPM <= 220 && IBI <= 2000) {
+  if (BPM >= 50 && BPM <= 200 && IBI <= 2000) {
     bpmPresent = true;
   } else {
     bpmPresent = false;
     if (pbpmPresent) {
       people++;
-      ABPM+=BPM;
+      ABPM+=pBPM;
     }
   }
 
+  /*
   if (!bpmPresent) {
-    float ibTime = 60000/(ABPM/people);
-    if (millis()%ibTime <= 30) {
-      hBeat = 20;
-    }
-  }
+   float ibTime = 60000/(ABPM/people);
+   if (millis()%ibTime <= 30) {
+   hBeat = 20;
+   }
+   }
+   */
 
   if (hBeat == 20) {
-    player.rewind();
-    player.play();
+    if (bpmPresent) {
+      player.rewind();
+      player.play();
+    }
   }
   hBeat--;
   hBeat = max(hBeat, 0);
@@ -92,16 +102,15 @@ void draw() {
     rotateZ(r+a);
     scale(scaler);
     if (r < HALF_PI) {
-      heart.scale(vScaleX, vScaleY);
+      shape(vHeart, 0, 0);
     } else if (r < PI) {
-      heart.scale(hScaleX, hScaleY);
+      shape(hHeart, 0, 0);
     } else if (r < PI+HALF_PI) {
-      heart.scale(vScaleX, vScaleY);
+      shape(vHeart, 0, 0);
     } else if (r < TWO_PI) {
-      heart.scale(hScaleX, hScaleY);
+      shape(hHeart, 0, 0);
+      ;
     }
-
-    shape(heart, 0, 0);
     popMatrix();
     popStyle();
   }
@@ -110,7 +119,7 @@ void draw() {
   if (bpmPresent) {
     text("BPM:\n" + BPM, height/2-200, height/2-100);
   } else {
-    text("BPM:\n" + ABPM/people + "\naverage", height/2-220, height/2-100);
+    text("BPM:\n" + constrain(ABPM/people, 50, 130) + "\naverage", height/2-220, height/2-100);
   }
   rotate(PI);
   text(people + "\nvisitors", height/2-200, height/2-100);
