@@ -7,4 +7,6 @@ First prototype for a project with Fablab Groningen and David Voordes about recy
 
 ###Nacht van Kunst en Wetenschap:
 
-Project for the Night of Art & Science in Groningen. Will be displayed at the Der Aa Kerk on June 4th.
+Project for the Nacht van Kunst en Wetenschap (Night of Art & Science) in Groningen. Was displayed at the Der Aa Kerk on June 4th 2016.
+
+![Pepper's Ghost Pyramid at Der Aa Kerk](nkw.jpg)
