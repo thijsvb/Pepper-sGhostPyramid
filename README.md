@@ -9,4 +9,4 @@ First prototype for a project with Fablab Groningen and David Voordes about recy
 
 Project for the Nacht van Kunst en Wetenschap (Night of Art & Science) in Groningen. Was displayed at the Der Aa Kerk on June 4th 2016.
 
-![Pepper's Ghost Pyramid at Der Aa Kerk](nkw.jpg)
+![Pepper's Ghost Pyramid at Der Aa Kerk](nkw.JPG)
